@@ -1,9 +1,9 @@
 import * as React from 'react';
+import { StyleSheet, Text, View } from 'react-native';
 import { Image } from "react-native-animatable";
 import {
   createBottomTabNavigator,
 } from "react-navigation";
-import { StyleSheet, Text, View } from 'react-native';
 import { icons } from '../../assets/images';
 import { colors } from '../../constants/theme';
 import {
@@ -12,17 +12,13 @@ import {
   SettingScreen
 } from "../../screens";
 
-const AnimationImage = (props: {
-  focused: boolean;
-  icon: number;
-  tintColor: string | null;
-  title?: string
-}) => (
+const AnimationImage = (props: any) => (
     <View style={{ alignItems: 'center' }}>
       <Image
         animation={props.focused ? "pulse" : undefined}
         source={props.icon}
         resizeMode="contain"
+
         style={[styles.icon, { tintColor: props.tintColor || "" }]}
       />
       <Text style={{

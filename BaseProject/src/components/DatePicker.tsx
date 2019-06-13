@@ -1,10 +1,25 @@
+// @ts-ignore
 import Moment from "moment";
 import * as React from 'react';
 import { Component } from "react";
 import { Modal, Picker, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
-class DatePicker extends Component {
-  constructor(props) {
+interface IProps {
+  modalVisible: boolean,
+  date: string,
+  onClose: () => void,
+  onDateChange: (item: string) => void
+}
+
+interface IState {
+  date: number,
+  month: number,
+  year: number,
+  valueMonthPicker: string
+}
+
+class DatePicker extends Component<IProps, IState> {
+  constructor(props: IProps) {
     super(props);
 
     this.state = {
@@ -15,8 +30,8 @@ class DatePicker extends Component {
     };
   }
 
-  componentDidMount() {
-    let dateMili;
+  public async componentDidMount() {
+    let dateMili: Date;
     if (this.props.date) {
       const [day, month, year] = this.props.date.split("/");
       dateMili = new Date(parseInt(year, 0), parseInt(month, 0) - 1, parseInt(day, 0))
@@ -24,14 +39,14 @@ class DatePicker extends Component {
       dateMili = new Date();
     }
 
-    this.setState({
+    await this.setState({
       date: dateMili.getDate(),
       month: dateMili.getMonth(),
       year: dateMili.getFullYear(),
     })
   }
 
-  checkIsNaNDate() {
+  public checkIsNaNDate() {
     const monthStr = '0' + this.state.month;
     const dayStr = '0' + this.state.date;
     const birthday = new Date(this.state.year + '-' + monthStr.slice(-2) + '-' + dayStr.slice(-2));
@@ -46,20 +61,20 @@ class DatePicker extends Component {
     return birthday
   }
 
-  render() {
+  public render() {
     const monthList = [
-      "Tháng 1",
-      "Tháng 2",
-      "Tháng 3",
-      "Tháng 4",
-      "Tháng 5",
-      "Tháng 6",
-      "Tháng 7",
-      "Tháng 8",
-      "Tháng 9",
-      "Tháng 10",
-      "Tháng 11",
-      "Tháng 12"
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December"
     ];
     const dayList = [];
     const yearList = [];
@@ -113,6 +128,8 @@ class DatePicker extends Component {
                     monthList[this.state.month] : this.state.valueMonthPicker}
                   style={{ flex: 1 }}
                   onValueChange={(itemValue, itemIndex) => {
+                    // tslint:disable-next-line:no-console
+                    console.log('milliseconds', itemValue);
                     this.setState({
                       month: itemIndex + 1,
                       valueMonthPicker: monthList[itemIndex]

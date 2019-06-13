@@ -1,6 +1,8 @@
 import React, { Component } from "react";
-import { Platform, StatusBar, StyleSheet } from "react-native";
+import { Platform, StatusBar, StatusBarStyle, StyleSheet } from "react-native";
 import {
+  NavigationEventSubscription,
+  NavigationInjectedProps,
   SafeAreaView,
   withNavigation,
 } from "react-navigation";
@@ -11,15 +13,22 @@ const styles = StyleSheet.create({
   }
 });
 
-class ScreenAreaView extends Component {
+interface IProps extends NavigationInjectedProps {
+  forceInset?: any;
+  barStyle?: StatusBarStyle;
+  style?: {};
+}
 
-  constructor(props) {
+class ScreenAreaView extends Component<IProps> {
+  private didFocusSubscription?: NavigationEventSubscription;
+
+  constructor(props: IProps) {
     super(props);
 
     this.didFocusSubscription = undefined;
   }
 
-  componentDidMount(): void {
+  public componentDidMount(): void {
     StatusBar.setBarStyle(this.props.barStyle || "default", true);
 
     if (Platform.OS === "android") {
@@ -35,13 +44,13 @@ class ScreenAreaView extends Component {
     );
   }
 
-  componentWillUnmount(): void {
+  public componentWillUnmount(): void {
     if (this.didFocusSubscription) {
       this.didFocusSubscription.remove();
     }
   }
 
-  render(): React.ReactElement<any> {
+  public render(): React.ReactElement<any> {
     return (
       <SafeAreaView
         forceInset={this.props.forceInset}

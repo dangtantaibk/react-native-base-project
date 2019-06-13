@@ -1,24 +1,37 @@
 import * as React from "react";
 import { PureComponent } from "react";
 import {
+  // tslint:disable-next-line
+  TouchableOpacityProps,
   TouchableOpacity,
+  GestureResponderEvent,
   ActivityIndicator,
+  ActivityIndicatorProps
 } from 'react-native';
 
-class TouchableDebounce extends PureComponent {
+interface Props extends TouchableOpacityProps {
+  /**
+   * Duration delay for the next action. Default = 500ms
+   */
+  interval?: number,
+  loading?: boolean,
+  loadingProps?: ActivityIndicatorProps
+}
+
+class TouchableDebounce extends PureComponent<Props> {
   // @ts-ignore
-  static defaultProps = {
+  private static defaultProps: Partial<Props> = {
     loading: false
   };
-  keepDelay: boolean = true;
-  defaultInterval: number = 500;
+  private keepDelay: boolean = true;
+  private defaultInterval: number = 500;
 
-  constructor(props) {
+  constructor(props: TouchableOpacityProps) {
     super(props);
     this.debounce = this.debounce.bind(this);
   }
 
-  debounce(event) {
+  public debounce(event: GestureResponderEvent) {
     if (this.props.onPress) {
       if (this.keepDelay) {
         this.keepDelay = false;
@@ -30,7 +43,7 @@ class TouchableDebounce extends PureComponent {
     }
   }
 
-  render() {
+  public render() {
     return (
       <TouchableOpacity
         {...this.props}

@@ -1,15 +1,20 @@
-import React, { Component } from "react";
+import React, { PureComponent, ReactElement, ReactNodeArray } from "react";
 import {
+  FlexAlignType, GestureResponderEvent,
   Image,
   ImageBackground,
+  ImageSourcePropType,
   Platform,
   StatusBar,
+  StyleProp,
   StyleSheet,
   TouchableOpacity,
   View,
+  ViewProps,
+  ViewStyle
 } from "react-native";
-import { SafeAreaView } from "react-navigation";
-import {icons} from "../assets/images";
+import { SafeAreaView, SafeAreaViewForceInsetValue } from "react-navigation";
+import { icons } from "../assets/images";
 
 const ALIGN_STYLE = {
   center: "center",
@@ -17,12 +22,48 @@ const ALIGN_STYLE = {
   right: "flex-end"
 };
 
-const Children = (props) => (
+type PlacementType = "left" | "right" | "center";
+
+// tslint:disable-next-line:interface-name
+interface ForceInset {
+  top?: SafeAreaViewForceInsetValue;
+  bottom?: SafeAreaViewForceInsetValue;
+  left?: SafeAreaViewForceInsetValue;
+  right?: SafeAreaViewForceInsetValue;
+  horizontal?: SafeAreaViewForceInsetValue;
+  vertical?: SafeAreaViewForceInsetValue;
+}
+
+interface IProps {
+  backgroundSource?: ImageSourcePropType;
+  backgroundColor?: string;
+  placement?: PlacementType;
+  containerStyle?: ViewStyle;
+  containerBodyStyle?: ViewStyle;
+  leftComponent?: ReactElement<ViewProps> | 'goBack';
+  goBackPressed?: (event: GestureResponderEvent) => void;
+  leftContainerStyle?: ViewStyle;
+  centerComponent: ReactElement<ViewProps>;
+  centerContainerStyle?: ViewStyle;
+  rightComponent: ReactElement<ViewProps>;
+  rightContainerStyle?: ViewStyle;
+  forceInset?: ForceInset;
+  bottomComponent: ReactElement<ViewProps>;
+  bottomContainerStyle?: ViewStyle;
+  arrowBackColor?: string;
+  arrowBackStyle?: ViewStyle
+}
+
+const Children = (props: {
+  style?: StyleProp<ViewStyle>;
+  placement?: PlacementType;
+  children: React.ReactNode;
+}) => (
     <View
       style={[
         {
           alignItems:
-            props.placement && (ALIGN_STYLE[props.placement])
+            props.placement && (ALIGN_STYLE[props.placement] as FlexAlignType)
         },
         props.style
       ]}
@@ -31,7 +72,12 @@ const Children = (props) => (
     </View>
   );
 
-const Container = (props) => {
+const Container = (props: {
+  forceInset?: ForceInset;
+  style?: StyleProp<ViewStyle>;
+  backgroundSource?: ImageSourcePropType;
+  children: React.ReactNode;
+}) => {
   if (props.backgroundSource) {
     return (
       <ImageBackground
@@ -45,7 +91,7 @@ const Container = (props) => {
   return <SafeAreaView {...props}>{props.children}</SafeAreaView>;
 };
 
-const ArrowBackLeft = (props ) => {
+const ArrowBackLeft = (props: { style?: ViewStyle, tintColor?: string, goBackPressed?: (event: GestureResponderEvent) => void }) => {
   return (<TouchableOpacity
       onPress={props.goBackPressed}
       style={[styles.arrowBackLeft, props.style]}>
@@ -53,12 +99,12 @@ const ArrowBackLeft = (props ) => {
   </TouchableOpacity>)
 };
 
-export default class Header extends Component {
-  static defaultProps = {
+export default class Header extends PureComponent<IProps> {
+  public static defaultProps: Partial<IProps> = {
     placement: "center"
   };
 
-  render() {
+  public render() {
     const {
       backgroundSource,
       forceInset,
@@ -76,7 +122,7 @@ export default class Header extends Component {
       bottomComponent,
       bottomContainerStyle
     } = this.props;
-    const childrens = children;
+    const childrens = children as ReactNodeArray;
     return (
       <Container
         backgroundSource={backgroundSource}
@@ -110,7 +156,7 @@ export default class Header extends Component {
               },
               centerContainerStyle
             ]}
-            placement={placement}
+            placement={placement!}
           >
             {(React.isValidElement(children) && children) ||
               (childrens && childrens[1]) ||
