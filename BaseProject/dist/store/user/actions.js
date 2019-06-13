@@ -9,11 +9,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const types_1 = require("./types");
-function changeFontSize(data) {
+function changeFontSize(fontSize) {
     return (dispatch) => __awaiter(this, void 0, void 0, function* () {
         try {
             dispatch(OnChangeFontSizeRequest());
-            dispatch(OnChangeFontSizeSuccess(data));
+            dispatch(OnChangeFontSizeSuccess(fontSize));
         }
         catch (error) {
             dispatch(OnChangeFontSizeFailure(error));
@@ -27,9 +27,9 @@ function OnChangeFontSizeRequest() {
         type: types_1.Types.ON_CHANGE_FONT_SIZE_REQUEST
     };
 }
-function OnChangeFontSizeSuccess(data) {
+function OnChangeFontSizeSuccess(fontSize) {
     return {
-        payload: data,
+        payload: fontSize,
         type: types_1.Types.ON_CHANGE_FONT_SIZE_SUCCESS
     };
 }

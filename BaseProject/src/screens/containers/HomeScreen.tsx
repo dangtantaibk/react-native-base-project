@@ -6,10 +6,10 @@ import {
 } from 'react-native';
 import {connect} from "react-redux";
 import {bindActionCreators, Dispatch} from 'redux';
+import {TouchableDebounce} from "../../components/TouchableDebounce";
 import {colors} from "../../constants/theme";
 import {StoreState} from "../../store";
 import * as UserActions from "../../store/user/actions";
-import {TouchableDebounce} from "../../components/TouchableDebounce";
 
 
 interface IDispatchInjectedProps {

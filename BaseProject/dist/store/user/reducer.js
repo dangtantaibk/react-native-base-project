@@ -4,7 +4,7 @@ const types_1 = require("./types");
 exports.initState = {
     changeFontSizeHasError: false,
     changeFontSizeLoading: false,
-    fontSizeForDisplay: "STANDARD",
+    fontSizeForDisplay: 14,
 };
 function default_1(state = exports.initState, action) {
     switch (action.type) {

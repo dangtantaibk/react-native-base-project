@@ -6,28 +6,21 @@ var __importStar = (this && this.__importStar) || function (mod) {
     result["default"] = mod;
     return result;
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 const react_1 = __importStar(require("react"));
 const react_native_1 = require("react-native");
-const TextChangeFontSize_1 = __importDefault(require("../../components/TextChangeFontSize"));
-const instructions = react_native_1.Platform.select({
-    android: 'Double tap R on your keyboard to reload,\n' +
-        'Shake or press menu button for dev menu',
-    ios: 'Press Cmd+R to reload,\n' +
-        'Cmd+D or shake for dev menu',
-});
+const react_redux_1 = require("react-redux");
 class AccountScreen extends react_1.Component {
     render() {
+        const { fontSizeForDisplay } = this.props;
         return (react_1.default.createElement(react_native_1.View, { style: styles.container },
-            react_1.default.createElement(TextChangeFontSize_1.default, { style: styles.welcome }, "Welcome to React Native!"),
-            react_1.default.createElement(TextChangeFontSize_1.default, { style: styles.instructions }, "To get started, edit App.js"),
-            react_1.default.createElement(TextChangeFontSize_1.default, { style: styles.instructions }, instructions)));
+            react_1.default.createElement(react_native_1.Text, { style: [styles.welcome, { fontSize: fontSizeForDisplay }] }, "Welcome to React Native!")));
     }
 }
-exports.default = AccountScreen;
+const mapStateToProps = (state) => ({
+    fontSizeForDisplay: state.User.fontSizeForDisplay,
+});
+exports.default = react_redux_1.connect(mapStateToProps, null)(AccountScreen);
 const styles = react_native_1.StyleSheet.create({
     container: {
         alignItems: 'center',
@@ -41,7 +34,6 @@ const styles = react_native_1.StyleSheet.create({
         textAlign: 'center',
     },
     welcome: {
-        fontSize: 20,
         margin: 10,
         textAlign: 'center',
     },
