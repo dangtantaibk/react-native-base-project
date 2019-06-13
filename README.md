@@ -1,5 +1,5 @@
 # react-native-base-project
-Base react native application for scalable projects using Redux + React Navigation + Realm + Axios + Reactotron
+Base react native application for scalable projects using Typescript + Redux + React Navigation + Realm + Axios + Reactotron
 ## Important dependencies:
 
 - [Redux](http://redux.js.org)
