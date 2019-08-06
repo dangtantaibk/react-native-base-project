@@ -5,6 +5,7 @@ import {
   View
 } from 'react-native';
 import {connect} from "react-redux";
+import Loading from "../../components/Loading";
 import {StoreState} from "../../store";
 
 interface IStateInjectedProps {
@@ -16,15 +17,36 @@ interface IProps extends IStateInjectedProps{
 
 }
 
-class AccountScreen extends Component<IProps> {
+interface IState {
+  showLoading: boolean
+}
+
+class AccountScreen extends Component<IProps, IState> {
+  constructor(props: IProps) {
+    super(props);
+
+    this.state = {
+      showLoading: true
+    }
+  }
+
+  public componentDidMount(): void {
+    setTimeout(() => {
+      this.setState({showLoading: false})
+    }, 2000)
+  }
+
+
   public render() {
     const {fontSizeForDisplay} = this.props;
+    const {showLoading} = this.state;
 
     return (
         <View style={styles.container}>
           <Text style={[styles.welcome, {fontSize: fontSizeForDisplay}]}>
             Welcome to React Native!
           </Text>
+          {showLoading && <Loading />}
         </View>
     );
   }
