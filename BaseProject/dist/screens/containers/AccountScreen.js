@@ -6,15 +6,32 @@ var __importStar = (this && this.__importStar) || function (mod) {
     result["default"] = mod;
     return result;
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const react_1 = __importStar(require("react"));
 const react_native_1 = require("react-native");
 const react_redux_1 = require("react-redux");
+const Loading_1 = __importDefault(require("../../components/Loading"));
 class AccountScreen extends react_1.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            showLoading: true
+        };
+    }
+    componentDidMount() {
+        setTimeout(() => {
+            this.setState({ showLoading: false });
+        }, 2000);
+    }
     render() {
         const { fontSizeForDisplay } = this.props;
+        const { showLoading } = this.state;
         return (react_1.default.createElement(react_native_1.View, { style: styles.container },
-            react_1.default.createElement(react_native_1.Text, { style: [styles.welcome, { fontSize: fontSizeForDisplay }] }, "Welcome to React Native!")));
+            react_1.default.createElement(react_native_1.Text, { style: [styles.welcome, { fontSize: fontSizeForDisplay }] }, "Welcome to React Native!"),
+            showLoading && react_1.default.createElement(Loading_1.default, null)));
     }
 }
 const mapStateToProps = (state) => ({

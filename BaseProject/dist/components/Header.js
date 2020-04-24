@@ -69,10 +69,10 @@ class Header extends react_1.PureComponent {
                 bottomComponent)));
     }
 }
+exports.default = Header;
 Header.defaultProps = {
     placement: "center"
 };
-exports.default = Header;
 const styles = react_native_1.StyleSheet.create({
     arrowBackLeft: {
         padding: 15

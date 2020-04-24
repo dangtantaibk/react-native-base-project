@@ -9,13 +9,13 @@ exports.initState = {
 function default_1(state = exports.initState, action) {
     switch (action.type) {
         case types_1.Types.ON_CHANGE_FONT_SIZE_REQUEST: {
-            return Object.assign({}, state, { changeFontSizeHasError: false, changeFontSizeLoading: true });
+            return Object.assign(Object.assign({}, state), { changeFontSizeHasError: false, changeFontSizeLoading: true });
         }
         case types_1.Types.ON_CHANGE_FONT_SIZE_SUCCESS: {
-            return Object.assign({}, state, { fontSizeForDisplay: action.payload });
+            return Object.assign(Object.assign({}, state), { fontSizeForDisplay: action.payload });
         }
         case types_1.Types.ON_CHANGE_FONT_SIZE_FAILURE: {
-            return Object.assign({}, state, { changeFontSizeHasError: true, changeFontSizeLoading: false });
+            return Object.assign(Object.assign({}, state), { changeFontSizeHasError: true, changeFontSizeLoading: false });
         }
         case types_1.Types.RESET_STATE: {
             return exports.initState;

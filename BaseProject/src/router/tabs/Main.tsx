@@ -3,7 +3,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import { Image } from "react-native-animatable";
 import {
   createBottomTabNavigator,
-} from "react-navigation";
+} from "react-navigation-tabs";
 import { icons } from '../../assets/images';
 import { colors } from '../../constants/theme';
 import {

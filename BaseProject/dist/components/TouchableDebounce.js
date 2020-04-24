@@ -34,7 +34,7 @@ class TouchableDebounce extends react_1.PureComponent {
             this.props.children));
     }
 }
+exports.TouchableDebounce = TouchableDebounce;
 TouchableDebounce.defaultProps = {
     loading: false
 };
-exports.TouchableDebounce = TouchableDebounce;

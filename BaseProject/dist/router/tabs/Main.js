@@ -10,7 +10,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const React = __importStar(require("react"));
 const react_native_1 = require("react-native");
 const react_native_animatable_1 = require("react-native-animatable");
-const react_navigation_1 = require("react-navigation");
+const react_navigation_tabs_1 = require("react-navigation-tabs");
 const images_1 = require("../../assets/images");
 const theme_1 = require("../../constants/theme");
 const screens_1 = require("../../screens");
@@ -21,7 +21,7 @@ const AnimationImage = (props) => (React.createElement(react_native_1.View, { st
             fontSize: 10,
             marginTop: 8,
         } }, props.title)));
-exports.Main = react_navigation_1.createBottomTabNavigator({
+exports.Main = react_navigation_tabs_1.createBottomTabNavigator({
     AccountScreenTab: {
         screen: screens_1.AccountScreen
     },
